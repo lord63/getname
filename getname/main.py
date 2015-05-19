@@ -15,6 +15,13 @@ from getname.utils import UniqueRandomArray
 ROOT = path.abspath(path.dirname(__file__))
 
 
+def load_names(the_type):
+    json_file = path.join('data', the_type + '_names.json')
+    with open(path.join(ROOT, json_file)) as f:
+        names = json.load(f)
+    return names
+
+
 @click.group(context_settings={'help_option_names': ('-h', '--help')})
 @click.version_option(__version__, '-v', '--version', message='%(version)s')
 def cli():
@@ -27,8 +34,7 @@ def cli():
               help='Top 100 cat names in alphabetical order.')
 def cat(showall):
     """Get popular cat names."""
-    with open(path.join(ROOT, 'data/cat_names.json')) as f:
-        cat_names = json.load(f)
+    cat_names = load_names('cat')
     if showall:
         for name in cat_names:
             click.echo(name)
