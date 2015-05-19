@@ -35,3 +35,36 @@ def cat(showall):
     else:
         random_name = UniqueRandomArray(cat_names).rand()
         click.echo(random_name)
+
+
+@cli.command()
+@click.option('-f', '--female', is_flag=True,
+              help='Show random female dog names.')
+@click.option('-m', '--male', is_flag=True,
+              help='Show random male dog names.')
+@click.option('--showall', is_flag=True,
+              help='Top 200 dog names sorted by popularity.')
+def dog(female, male, showall):
+    """Get popular dog names."""
+    if female and not showall:
+        female_dog_names = load_names('female_dog')
+        random_name = UniqueRandomArray(female_dog_names).rand()
+        click.echo(random_name)
+    if male and not showall:
+        male_dog_names = load_names('male_dog')
+        random_name = UniqueRandomArray(male_dog_names).rand()
+        click.echo(random_name)
+    if showall:
+        female_dog_names = load_names('female_dog')
+        male_dog_names = load_names('male_dog')
+        all_dog_names = female_dog_names + male_dog_names
+
+        if female and not male:
+            names = female_dog_names
+        elif male and not female:
+            names = male_dog_names
+        else:
+            names = all_dog_names
+
+        for name in names:
+            click.echo(name)
