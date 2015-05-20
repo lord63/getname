@@ -72,3 +72,17 @@ def dog(female, male, showall):
             names = list(chain(*names.values()))
         for name in names:
             click.echo(name)
+
+
+@cli.command()
+@click.option('--showall', is_flag=True,
+              help='All superhero names in alphabetical order.')
+def hero(showall):
+    """Get superhero names."""
+    superhero_names = load_names('superhero')
+    if showall:
+        for name in superhero_names:
+            click.echo(name)
+    else:
+        random_name = UniqueRandomArray(superhero_names).rand()
+        click.echo(random_name)
