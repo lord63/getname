@@ -86,3 +86,17 @@ def hero(showall):
     else:
         random_name = UniqueRandomArray(superhero_names).rand()
         click.echo(random_name)
+
+
+@cli.command()
+@click.option('--showall', is_flag=True,
+              help='All supervillain names in alphabetical order.')
+def villain(showall):
+    """Get supervillain names."""
+    supervillain_names = load_names('supervillain')
+    if showall:
+        for name in supervillain_names:
+            click.echo(name)
+    else:
+        random_name = UniqueRandomArray(supervillain_names).rand()
+        click.echo(random_name)
