@@ -5,6 +5,7 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 from os import path
+from itertools import chain
 
 import click
 
@@ -52,25 +53,22 @@ def cat(showall):
               help='Top 200 dog names sorted by popularity.')
 def dog(female, male, showall):
     """Get popular dog names."""
-    if female and not showall:
-        female_dog_names = load_names('female_dog')
-        random_name = UniqueRandomArray(female_dog_names).rand()
-        click.echo(random_name)
-    if male and not showall:
-        male_dog_names = load_names('male_dog')
-        random_name = UniqueRandomArray(male_dog_names).rand()
-        click.echo(random_name)
-    if showall:
-        female_dog_names = load_names('female_dog')
-        male_dog_names = load_names('male_dog')
-        all_dog_names = female_dog_names + male_dog_names
-
+    names = load_names('dog')
+    if not showall:
         if female and not male:
-            names = female_dog_names
+            random_name = UniqueRandomArray(names['female']).rand()
         elif male and not female:
-            names = male_dog_names
+            random_name = UniqueRandomArray(names['male']).rand()
         else:
-            names = all_dog_names
-
+            all_dog_names = list(chain(*names.values()))
+            random_name = UniqueRandomArray(all_dog_names).rand()
+        click.echo(random_name)
+    else:
+        if female and not male:
+            names = names['female']
+        elif male and not female:
+            names = names['male']
+        else:
+            names = list(chain(*names.values()))
         for name in names:
             click.echo(name)
