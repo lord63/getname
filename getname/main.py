@@ -23,6 +23,16 @@ def load_names(the_type):
     return names
 
 
+def generate_random_name(the_type, showall):
+    names = load_names(the_type)
+    if showall:
+        for name in names:
+            click.echo(name)
+    else:
+        random_name = UniqueRandomArray(names).rand()
+        click.echo(random_name)
+
+
 @click.group(context_settings={'help_option_names': ('-h', '--help')})
 @click.version_option(__version__, '-v', '--version', message='%(version)s')
 def cli():
@@ -35,13 +45,7 @@ def cli():
               help='Top 100 cat names in alphabetical order.')
 def cat(showall):
     """Get popular cat names."""
-    cat_names = load_names('cat')
-    if showall:
-        for name in cat_names:
-            click.echo(name)
-    else:
-        random_name = UniqueRandomArray(cat_names).rand()
-        click.echo(random_name)
+    generate_random_name('cat', showall)
 
 
 @cli.command()
@@ -79,13 +83,7 @@ def dog(female, male, showall):
               help='All superhero names in alphabetical order.')
 def hero(showall):
     """Get superhero names."""
-    superhero_names = load_names('superhero')
-    if showall:
-        for name in superhero_names:
-            click.echo(name)
-    else:
-        random_name = UniqueRandomArray(superhero_names).rand()
-        click.echo(random_name)
+    generate_random_name('superhero', showall)
 
 
 @cli.command()
@@ -93,10 +91,4 @@ def hero(showall):
               help='All supervillain names in alphabetical order.')
 def villain(showall):
     """Get supervillain names."""
-    supervillain_names = load_names('supervillain')
-    if showall:
-        for name in supervillain_names:
-            click.echo(name)
-    else:
-        random_name = UniqueRandomArray(supervillain_names).rand()
-        click.echo(random_name)
+    generate_random_name('supervillain', showall)
