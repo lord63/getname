@@ -62,8 +62,7 @@ def dog(female, male, showall):
             names = names['male']
         else:
             names = list(chain(*names.values()))
-        for name in names:
-            click.echo(name)
+        click.echo('\n'.join(names))
 
 
 @cli.command()

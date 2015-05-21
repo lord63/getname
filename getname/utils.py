@@ -49,8 +49,7 @@ def generate_random_name(the_type, showall):
     """Generate a name or print them all according to the type."""
     names = load_names(the_type)
     if showall:
-        for name in names:
-            click.echo(name)
+        click.echo('\n'.join(names))
     else:
         random_name = UniqueRandomArray(names).rand()
         click.echo(random_name)
