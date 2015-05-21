@@ -1,38 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+    main.py
+    ~~~~~~~
+
+    the main cli interface.
+
+    :copyright: (c) 2015 by lord63.
+    :license: MIT, see LICENSE for more details.
+"""
+
 from __future__ import absolute_import, unicode_literals
 
-import json
-from os import path
 from itertools import chain
 
 import click
 
 from getname import __version__
-from getname.utils import UniqueRandomArray
-
-
-ROOT = path.abspath(path.dirname(__file__))
-
-
-def load_names(the_type):
-    """Load names from the json file."""
-    json_file = path.join('data', the_type + '_names.json')
-    with open(path.join(ROOT, json_file)) as f:
-        names = json.load(f)
-    return names
-
-
-def generate_random_name(the_type, showall):
-    """Generate a name or print them all according to the type."""
-    names = load_names(the_type)
-    if showall:
-        for name in names:
-            click.echo(name)
-    else:
-        random_name = UniqueRandomArray(names).rand()
-        click.echo(random_name)
+from getname.utils import UniqueRandomArray, load_names, generate_random_name
 
 
 @click.group(context_settings={'help_option_names': ('-h', '--help')})
