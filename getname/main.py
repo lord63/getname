@@ -33,7 +33,7 @@ def cli():
               help='Top 100 cat names in alphabetical order.')
 def cat(showall):
     """Get popular cat names."""
-    generate_random_name('cat', showall)
+    click.echo(generate_random_name('cat', showall))
 
 
 @cli.command()
@@ -70,7 +70,7 @@ def dog(female, male, showall):
               help='All superhero names in alphabetical order.')
 def hero(showall):
     """Get superhero names."""
-    generate_random_name('superhero', showall)
+    click.echo(generate_random_name('superhero', showall))
 
 
 @cli.command()
@@ -78,4 +78,4 @@ def hero(showall):
               help='All supervillain names in alphabetical order.')
 def villain(showall):
     """Get supervillain names."""
-    generate_random_name('supervillain', showall)
+    click.echo(generate_random_name('supervillain', showall))
