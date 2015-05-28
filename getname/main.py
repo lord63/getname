@@ -44,8 +44,11 @@ def load_names(the_type):
     return names
 
 
-def generate_random_name(the_type, gender=None, showall=False):
+def random_name(the_type, gender=None, showall=False):
     """Generate a name or print them all according to the type."""
+    if the_type not in ['cat', 'dog', 'superhero', 'supervillain']:
+        raise ValueError("I don't know about {0}, "
+                         "try cat/dog/hero/villain.".format(the_type))
     names = load_names(the_type)
     if the_type == 'dog':
         if showall:
@@ -61,15 +64,12 @@ def generate_random_name(the_type, gender=None, showall=False):
                 all_names = list(chain(*names.values()))
                 random_name = UniqueRandomArray(all_names).rand()
                 return random_name
-    elif the_type in ['cat', 'superhero', 'supervillain']:
+    else:
         if gender:
-            return "{0} has no gender at all.".format(the_type)
+            raise ValueError("{0} has no gender at all.".format(the_type))
         else:
             if showall:
                 return '\n'.join(names)
             else:
                 random_name = UniqueRandomArray(names).rand()
                 return random_name
-    else:
-        return ("I don't know about {0}, "
-                "try cat/dog/hero/villain.".format(the_type))
