@@ -16,6 +16,7 @@ from __future__ import absolute_import, unicode_literals
 import random
 import json
 from os import path
+from itertools import chain
 
 
 ROOT = path.abspath(path.dirname(__file__))
@@ -43,11 +44,32 @@ def load_names(the_type):
     return names
 
 
-def generate_random_name(the_type, showall):
+def generate_random_name(the_type, gender=None, showall=False):
     """Generate a name or print them all according to the type."""
     names = load_names(the_type)
-    if showall:
-        return '\n'.join(names)
+    if the_type == 'dog':
+        if showall:
+            if gender in ['female', 'male']:
+                return '\n'.join(names[gender])
+            else:
+                return '\n'.join(chain(*names.values()))
+        else:
+            if gender:
+                random_name = UniqueRandomArray(names[gender]).rand()
+                return random_name
+            else:
+                all_names = list(chain(*names.values()))
+                random_name = UniqueRandomArray(all_names).rand()
+                return random_name
+    elif the_type in ['cat', 'superhero', 'supervillain']:
+        if gender:
+            return "{0} has no gender at all.".format(the_type)
+        else:
+            if showall:
+                return '\n'.join(names)
+            else:
+                random_name = UniqueRandomArray(names).rand()
+                return random_name
     else:
-        random_name = UniqueRandomArray(names).rand()
-        return random_name
+        return ("I don't know about {0}, "
+                "try cat/dog/hero/villain.".format(the_type))

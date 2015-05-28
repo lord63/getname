@@ -13,12 +13,10 @@
 
 from __future__ import absolute_import, unicode_literals
 
-from itertools import chain
-
 import click
 
 from getname import __version__
-from getname.utils import UniqueRandomArray, load_names, generate_random_name
+from getname.utils import generate_random_name
 
 
 @click.group(context_settings={'help_option_names': ('-h', '--help')})
@@ -33,7 +31,7 @@ def cli():
               help='Top 100 cat names in alphabetical order.')
 def cat(showall):
     """Get popular cat names."""
-    click.echo(generate_random_name('cat', showall))
+    click.echo(generate_random_name('cat', showall=showall))
 
 
 @cli.command()
@@ -45,24 +43,12 @@ def cat(showall):
               help='Top 200 dog names sorted by popularity.')
 def dog(female, male, showall):
     """Get popular dog names."""
-    names = load_names('dog')
-    if not showall:
-        if female and not male:
-            random_name = UniqueRandomArray(names['female']).rand()
-        elif male and not female:
-            random_name = UniqueRandomArray(names['male']).rand()
-        else:
-            all_dog_names = list(chain(*names.values()))
-            random_name = UniqueRandomArray(all_dog_names).rand()
-        click.echo(random_name)
+    if female:
+        click.echo(generate_random_name('dog', 'female', showall=showall))
+    elif male:
+        click.echo(generate_random_name('dog', 'male', showall=showall))
     else:
-        if female and not male:
-            names = names['female']
-        elif male and not female:
-            names = names['male']
-        else:
-            names = list(chain(*names.values()))
-        click.echo('\n'.join(names))
+        click.echo(generate_random_name('dog', showall=showall))
 
 
 @cli.command()
@@ -70,7 +56,7 @@ def dog(female, male, showall):
               help='All superhero names in alphabetical order.')
 def hero(showall):
     """Get superhero names."""
-    click.echo(generate_random_name('superhero', showall))
+    click.echo(generate_random_name('superhero', showall=showall))
 
 
 @cli.command()
@@ -78,4 +64,4 @@ def hero(showall):
               help='All supervillain names in alphabetical order.')
 def villain(showall):
     """Get supervillain names."""
-    click.echo(generate_random_name('supervillain', showall))
+    click.echo(generate_random_name('supervillain', showall=showall))
