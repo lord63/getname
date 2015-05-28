@@ -53,9 +53,9 @@ def random_name(the_type, gender=None, showall=False):
     if the_type == 'dog':
         if showall:
             if gender in ['female', 'male']:
-                return '\n'.join(names[gender])
+                return names[gender]
             else:
-                return '\n'.join(chain(*names.values()))
+                return list(chain(*names.values()))
         else:
             if gender:
                 random_name = UniqueRandomArray(names[gender]).rand()
@@ -69,7 +69,7 @@ def random_name(the_type, gender=None, showall=False):
             raise ValueError("{0} has no gender at all.".format(the_type))
         else:
             if showall:
-                return '\n'.join(names)
+                return names
             else:
                 random_name = UniqueRandomArray(names).rand()
                 return random_name
