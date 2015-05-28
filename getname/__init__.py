@@ -11,6 +11,7 @@
     :license: MIT, see LICENSE for more details.
 """
 
+from getname.main import generate_random_name
 
 __title__ = "getname"
 __version__ = '0.1.0'

@@ -3,9 +3,9 @@
 
 """
     main.py
-    ~~~~~~~
+    ~~~~~~~~
 
-    the main cli interface.
+    some help functions.
 
     :copyright: (c) 2015 by lord63.
     :license: MIT, see LICENSE for more details.
@@ -13,55 +13,63 @@
 
 from __future__ import absolute_import, unicode_literals
 
-import click
-
-from getname import __version__
-from getname.utils import generate_random_name
-
-
-@click.group(context_settings={'help_option_names': ('-h', '--help')})
-@click.version_option(__version__, '-v', '--version', message='%(version)s')
-def cli():
-    """Get popular cat/dog/superhero/supervillain names."""
-    pass
+import random
+import json
+from os import path
+from itertools import chain
 
 
-@cli.command()
-@click.option('--showall', is_flag=True,
-              help='Top 100 cat names in alphabetical order.')
-def cat(showall):
-    """Get popular cat names."""
-    click.echo(generate_random_name('cat', showall=showall))
+_ROOT = path.abspath(path.dirname(__file__))
 
 
-@cli.command()
-@click.option('-f', '--female', is_flag=True,
-              help='Show random female dog names.')
-@click.option('-m', '--male', is_flag=True,
-              help='Show random male dog names.')
-@click.option('--showall', is_flag=True,
-              help='Top 200 dog names sorted by popularity.')
-def dog(female, male, showall):
-    """Get popular dog names."""
-    if female:
-        click.echo(generate_random_name('dog', 'female', showall=showall))
-    elif male:
-        click.echo(generate_random_name('dog', 'male', showall=showall))
+class UniqueRandomArray(object):
+    """Get consecutively unique elements from an array."""
+    def __init__(self, sequence):
+        self.previous = None
+        self.sequence = sequence
+
+    def rand(self):
+        item = random.choice(self.sequence)
+        if item == self.previous:
+            item = self.rand()
+        self.previous = item
+        return item
+
+
+def load_names(the_type):
+    """Load names from the json file."""
+    json_file = path.join('data', the_type + '_names.json')
+    with open(path.join(_ROOT, json_file)) as f:
+        names = json.load(f)
+    return names
+
+
+def generate_random_name(the_type, gender=None, showall=False):
+    """Generate a name or print them all according to the type."""
+    names = load_names(the_type)
+    if the_type == 'dog':
+        if showall:
+            if gender in ['female', 'male']:
+                return '\n'.join(names[gender])
+            else:
+                return '\n'.join(chain(*names.values()))
+        else:
+            if gender:
+                random_name = UniqueRandomArray(names[gender]).rand()
+                return random_name
+            else:
+                all_names = list(chain(*names.values()))
+                random_name = UniqueRandomArray(all_names).rand()
+                return random_name
+    elif the_type in ['cat', 'superhero', 'supervillain']:
+        if gender:
+            return "{0} has no gender at all.".format(the_type)
+        else:
+            if showall:
+                return '\n'.join(names)
+            else:
+                random_name = UniqueRandomArray(names).rand()
+                return random_name
     else:
-        click.echo(generate_random_name('dog', showall=showall))
-
-
-@cli.command()
-@click.option('--showall', is_flag=True,
-              help='All superhero names in alphabetical order.')
-def hero(showall):
-    """Get superhero names."""
-    click.echo(generate_random_name('superhero', showall=showall))
-
-
-@cli.command()
-@click.option('--showall', is_flag=True,
-              help='All supervillain names in alphabetical order.')
-def villain(showall):
-    """Get supervillain names."""
-    click.echo(generate_random_name('supervillain', showall=showall))
+        return ("I don't know about {0}, "
+                "try cat/dog/hero/villain.".format(the_type))
