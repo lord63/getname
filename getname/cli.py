@@ -40,7 +40,7 @@ def cat(showall):
 @click.option('-m', '--male', is_flag=True,
               help='Show random male dog names.')
 @click.option('--showall', is_flag=True,
-              help='Top 200 dog names sorted by popularity.')
+              help='All/all female/all male dog names sorted by popularity.')
 def dog(female, male, showall):
     """Get popular dog names."""
     if female:
