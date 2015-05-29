@@ -9,23 +9,60 @@ I just combine [@sindresorhus][]'s four staffs into this one.
 * [superheroes][]
 * [supervillains][]
 
+## Install
+
+```shell
+$ pip install getname
+```
+
 ## Usage
+
+### API
+
+`random(the_type, gender, showall)`
+
+* type: cat/dog/superhero/supervillian.
+* gender: female/male, **only** for dog names.
+* showall: True/False, show all the names.
+
+```python
+>>> from getname import random_name
+>>> random_name('cat')
+u'Angel'
+>>> random_name('dog', gender='female')
+u'Maggie'
+>>> random_name('superhero', showall=True)
+[u'3-D Man', u'A-Bomb', u'A.I.M.', ...]
+```
+
+### CLI
+
+```shell
+$ getname dog
+Angel
+$ getname dog -f
+Lady
+$ getname dog --showall
+[u'Max', u'Buddy',...]
+```
 
 Use `getname -h` to get help message about each usage.
 
-    Usage: getname [OPTIONS] COMMAND [ARGS]...
+```shell
+Usage: getname [OPTIONS] COMMAND [ARGS]...
 
-        Get popular cat/dog/superhero/supervillain names.
+  Get popular cat/dog/superhero/supervillain names.
 
-        Options:
-            -v, --version  Show the version and exit.
-            -h, --help     Show this message and exit.
+Options:
+  -v, --version  Show the version and exit.
+  -h, --help     Show this message and exit.
 
-        Commands:
-            cat      Get popular cat names.
-            dog      Get popular dog names.
-            hero     Get superhero names.
-            villain  Get supervillain names.
+Commands:
+  cat      Get popular cat names.
+  dog      Get popular dog names.
+  hero     Get superhero names.
+  villain  Get supervillain names.
+```
 
 Use `getname cat/dog/hero/villain -h` to get help message about the specified type.
 
