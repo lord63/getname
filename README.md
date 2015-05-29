@@ -1,5 +1,8 @@
 # GetName
 
+[![Latest Version][1]][2]
+[![Build Status][3]][4]
+
 Get cat/dog/superhero/supervillain names.
 
 I just combine [@sindresorhus][]'s four staffs into this one.
@@ -81,6 +84,11 @@ All the glories should belong to [@sindresorhus][], I just port it to python :)
 
 MIT.
 
+
+[1]: http://img.shields.io/pypi/v/getname.svg
+[2]: https://pypi.python.org/pypi/getname
+[3]: https://travis-ci.org/lord63/getname.svg
+[4]: https://travis-ci.org/lord63/getname
 [@sindresorhus]: https://github.com/sindresorhus
 [dog-names]: https://github.com/sindresorhus/dog-names
 [cat-names]: https://github.com/sindresorhus/cat-names
