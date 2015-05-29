@@ -66,6 +66,13 @@ Commands:
 
 Use `getname cat/dog/superhero/supervillain -h` to get help message about the specified type.
 
+## Tests
+
+```shell
+$ pip install -r dev-requirements.txt
+$ invoke test
+```
+
 ## Credits
 
 All the glories should belong to [@sindresorhus][], I just port it to python :)
