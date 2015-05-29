@@ -54,7 +54,7 @@ def dog(female, male, showall):
 @cli.command()
 @click.option('--showall', is_flag=True,
               help='All superhero names in alphabetical order.')
-def hero(showall):
+def superhero(showall):
     """Get superhero names."""
     click.echo(random_name('superhero', showall=showall))
 
@@ -62,6 +62,6 @@ def hero(showall):
 @cli.command()
 @click.option('--showall', is_flag=True,
               help='All supervillain names in alphabetical order.')
-def villain(showall):
+def supervillain(showall):
     """Get supervillain names."""
     click.echo(random_name('supervillain', showall=showall))

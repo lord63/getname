@@ -60,11 +60,11 @@ Options:
 Commands:
   cat      Get popular cat names.
   dog      Get popular dog names.
-  hero     Get superhero names.
-  villain  Get supervillain names.
+  superhero     Get superhero names.
+  supervillain  Get supervillain names.
 ```
 
-Use `getname cat/dog/hero/villain -h` to get help message about the specified type.
+Use `getname cat/dog/superhero/supervillain -h` to get help message about the specified type.
 
 ## Credits
 
