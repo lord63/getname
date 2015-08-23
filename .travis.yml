@@ -10,7 +10,7 @@ install:
     - pip install -e .
 
 script:
-    - invoke test
+    - make test
 
 notifications:
     email: false
