@@ -1,0 +1,5 @@
+2015.08.23 v0.1.1
+- don't use unicode_literals, so click >= 5.0 won't complain about it
+
+2015.05.29 0.1.0
+- release v0.1.0
