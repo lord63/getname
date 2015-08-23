@@ -73,7 +73,7 @@ Use `getname cat/dog/superhero/supervillain -h` to get help message about the sp
 
 ```shell
 $ pip install -r dev-requirements.txt
-$ invoke test
+$ make test
 ```
 
 ## Credits
