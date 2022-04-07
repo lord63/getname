@@ -24,7 +24,7 @@ $ pip install getname
 
 `random(the_type, gender, showall)`
 
-* type: cat/dog/superhero/supervillian.
+* type: cat/dog/superhero/supervillain.
 * gender: female/male, **only** for dog names.
 * showall: True/False, show all the names.
 
